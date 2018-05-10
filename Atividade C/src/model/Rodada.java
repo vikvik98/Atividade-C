@@ -1,20 +1,31 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Rodada {
 
     private Palavra palavra;
     private StringBuilder palavraEscondida;
+    private int contErros = 0;
+    private Tema tema;
+    private List<Palavra> palavraList ;
 
-    public Rodada(Palavra frase) {
+    public Rodada(Palavra frase, Tema tema) {
         this.palavra = frase;
         this.palavraEscondida = palavra.gerarPalavraEscondida();
+        this.tema = tema;
+        palavraList = tema.sortearPalavra();
     }
 
+
     public boolean palpite(String palpite){
+
         if (palpite.length() > 1){
-            //TODO: palpite tem que ter mesmo tamanho que palavra;
             if (palavra.verificaPalavra(palpite)){
                 return true;
+            }else{
+                contErros = 5;
             }
         }else{
             if (palavra.verificaLetra(palpite.charAt(0))){
@@ -24,6 +35,8 @@ public class Rodada {
                         return true;
                     }
                 }
+            }else{
+                contErros++;
             }
         }
         return false;
