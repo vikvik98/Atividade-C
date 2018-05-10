@@ -3,23 +3,31 @@ package model;
 public class Palavra {
 
     private String nome;
+    private char [] palavraEscondida;
 
     public Palavra(String nome) {
         this.nome = nome;
+        this.palavraEscondida = gerarPalavraEscondida();
     }
 
-    public boolean verificaLetra(char letra){
-        for (int i = 0; i < nome.length(); i++){
-            if (letra == nome.charAt(i)){
-                return true;
-            }
+    //TODO: Boneco.
+    //TODO: voltar as palavras escondidas.
+
+    public boolean verificaLetra(char letra, int pos) {
+        if (palavraEscondida [pos] == '_'){
+            return letra == nome.charAt(pos);
+        }else{
+            throw new IllegalArgumentException();
         }
-        return false;
+    }
+
+    public void preencherLetraEscondida(char letra, int pos){
+        palavraEscondida [pos] = letra;
     }
 
     public boolean verificaPalavra(String palavra){
         boolean acertou = true;
-        for (int i = 0; i < nome.length(); i++){
+        for (int i = 0; i < palavra.length(); i++){
             if (palavra.charAt(i) != nome.charAt(i)){
                 acertou = false;
                 break;
@@ -28,26 +36,27 @@ public class Palavra {
         return acertou;
     }
 
-    public StringBuilder gerarPalavraEscondida(){
-        StringBuilder palavraEscondida = new StringBuilder();
+    public void preencherPalavraEscondida(){
+        for (int i = 0; i < nome.length(); i++){
+            palavraEscondida [i] = nome.charAt(i);
+        }
+    }
+
+    public char [] gerarPalavraEscondida(){
+        palavraEscondida = new char[nome.length()];
         for (int i = 0; i < this.nome.length(); i++){
-            palavraEscondida.append('-');
+            palavraEscondida [i] = '_';
         }
         return palavraEscondida;
     }
 
-    public StringBuilder gerarPalavraEscondida(StringBuilder palavra, char letra, int posicao){
-        StringBuilder palavraEscondida = new StringBuilder();
-        for (int i = 0; i < palavra.length(); i++){
-            if (i == posicao) {
-                palavraEscondida.append(letra);
-            }else{
-                palavraEscondida.append(palavraEscondida.charAt(i));
-            }
+    public String getPalavraEscondida(){
+        String escondida = "";
+        for (int i = 0; i < nome.length(); i++){
+            escondida += palavraEscondida [i];
         }
-        return palavraEscondida;
+        return escondida;
     }
-
 
     public String getNome() {
         return nome;
