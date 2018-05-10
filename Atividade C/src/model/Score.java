@@ -19,6 +19,11 @@ public class Score {
 	}
 	
 	
+	public Score() {
+		// TODO Auto-generated constructor stub
+	}
+
+
 	public List<Score> rankeado(List<Score> ranking, Score pontuacao){
 		
 		if(ranking.size() < 9){
@@ -52,6 +57,18 @@ public class Score {
 		
 		return ranking;
 		
+	}
+	
+	public String exibir_higscores(List<Score> pontuacoes){
+		String listaHighScore = "----HIGHSCORES----\n";
+		
+			if(pontuacoes.size() > 1){
+			
+				for(int i = 1; i < pontuacoes.size(); i++){
+					listaHighScore += i + "-" + pontuacoes.get(i).getNome() + "	Score: " + pontuacoes.get(i).getPontuacao()+"\n";
+				}	
+			}
+		return listaHighScore;
 	}
 
 
