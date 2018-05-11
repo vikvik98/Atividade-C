@@ -31,6 +31,8 @@ public class Tema {
             for (int i = 0; i < quantidadePalavrasSorteadas; i++){
             	palavras.add(sortearPalavra());
             }
+        }else{
+            palavras.add(sortearPalavra());
         }
 		return palavras;
     }
