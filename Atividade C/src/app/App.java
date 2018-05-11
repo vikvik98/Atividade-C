@@ -26,11 +26,17 @@ public class App {
 
 		switch (escolha) {
 			case 1:
-				Rodada rodada = new Rodada(temas.get(1));
+				Rodada rodada = new Rodada(temas.get(0));
 				rodada.iniciarRodada();
-				while (true) {
-					rodada.palpite(JOptionPane.showInputDialog(null, rodada.getBoneco().getCorpo() + "\n" + rodada.getPalavras() + "\nDigite um palpite: "));
+				while (!rodada.isAcabou()){
+					rodada.palpite(JOptionPane.showInputDialog(null, rodada.getBoneco().getCorpo() + "\n" + rodada.getErradas() + "\n" + rodada.getPalavras() + "\nDigite um palpite: "));
 				}
+				if (rodada.isGanhou()){
+					JOptionPane.showMessageDialog(null, "Parabéns, voce venceu!");
+				}else{
+					JOptionPane.showMessageDialog(null, "Infelizmente voce perdeu!");
+				}
+				break;
 
 			case 2:
 				String mensagem = "";
@@ -41,9 +47,11 @@ public class App {
 				int opcaoTema = Integer.parseInt(JOptionPane.showInputDialog(null, mensagem + "\n Escolha um tema: "));
 				temas.get(opcaoTema - 1).cadastrarPalavra(JOptionPane.showInputDialog(null, "Digite a palavra a ser cadastrada nesse tema: "));
 				JOptionPane.showMessageDialog(null, "Palavra adicionada com sucesso!");
+				menu();
 				break;
 
 			case 3:
+				break;
 
 			case 4:
 				Score score = new Score();

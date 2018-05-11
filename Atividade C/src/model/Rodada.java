@@ -6,15 +6,20 @@ import java.util.List;
 
 public class Rodada {
 
-    private int contErros = 0;
+    private int contErros;
     private List<Palavra> palavraList;
     private List<Palavra> palavraListAux;
     private Boneco boneco;
-    private int contEnd;
+    private boolean ganhou;
+    private boolean acabou;
+    private String erradas;
 
     public Rodada(Tema tema) {
         this.palavraList = tema.sortearPalavra();
         this.palavraListAux = this.palavraList;
+        this.erradas = "";
+        this.acabou = false;
+        this.contErros = 0;
     }
 
     public Boneco getBoneco() {
@@ -27,10 +32,7 @@ public class Rodada {
         }
         boneco = new Boneco();
         boneco.preencherBoneco(contErros);
-    }
 
-    public int getContEnd() {
-        return contEnd;
     }
 
     public void palpite(String palpite) {
@@ -41,9 +43,10 @@ public class Rodada {
                 if (palpite.length() == palavraList.get(i).getNome().length()){
                     if (palavraList.get(i).verificaPalavra(palpite)) {
                         palavraList.get(i).preencherPalavraEscondida();
+                        acertou = true;
                     }
                 }else {
-                    contErros = 5;
+                    contErros = 6;
                 }
             }else{
                 for (int j = 0; j < palavraList.get(i).getNome().length(); j++) {
@@ -51,27 +54,36 @@ public class Rodada {
                         if (palavraList.get(i).verificaLetra(palpite.charAt(0), j)){
                             palavraList.get(i).preencherLetraEscondida(palpite.charAt(0), j);
                             acertou = true;
-                        }else{
-                            acertou = false;
-                            contErros++;
                         }
+
                     }catch (IllegalArgumentException e){
+                        acertou = true;
                         JOptionPane.showMessageDialog(null, "Letra já digitada!");
                     }
                 }
+
+                if ( !acertou){
+                    if (!erradas.contains(palpite)){
+                        erradas += palpite.charAt(0);
+                    }
+
+                }
+
             }
 
-            //TODO: toda vez vai contar quando der um palpite
             if (palavraList.get(i).getNome().equals(palavraList.get(i).getPalavraEscondida()) && palavraListAux.get(i) != null){
                 palavraListAux.remove(i);
                 //remover da lista de palavras pois se nao sempre vai contar.
-                contEnd++;
             }
 
-            //TODO: oq fazer quando finalizar a rodada,
-//            if (contEnd == palavraList.size()){
-//
-//            }
+            if (palavraListAux.size() == 0){
+                ganhou = true;
+                finalizar();
+            }else if (contErros == 5){
+                ganhou = false;
+                finalizar();
+            }
+
         }
 
         if (!acertou){
@@ -80,11 +92,28 @@ public class Rodada {
         }
     }
 
+    private void finalizar() {
+        acabou = true;
+    }
+
+
     public String getPalavras(){
         String retorno = "";
         for (int i = 0; i < palavraList.size(); i++){
-            retorno += palavraList.get(i).getPalavraEscondida();
+            retorno += palavraList.get(i).getPalavraEscondida() + "\n";
         }
         return retorno;
+    }
+
+    public boolean isAcabou() {
+        return acabou;
+    }
+
+    public String getErradas() {
+        return erradas;
+    }
+
+    public boolean isGanhou() {
+        return ganhou;
     }
 }
