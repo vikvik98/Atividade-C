@@ -4,6 +4,7 @@ public class Palavra {
 
     private String nome;
     private char [] palavraEscondida;
+    //variavel pra saber se eu ja acertei ou nao a palavra. - RODADA -
 
     public Palavra(String nome) {
         this.nome = nome;
@@ -16,8 +17,10 @@ public class Palavra {
     public boolean verificaLetra(char letra, int pos) {
         if (palavraEscondida [pos] == '_'){
             return letra == nome.charAt(pos);
-        }else{
+        }else if (letra == palavraEscondida [pos]){
             throw new IllegalArgumentException();
+        }else{
+            return false;
         }
     }
 
