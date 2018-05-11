@@ -84,7 +84,11 @@ public class Rodada {
 
             if (palavraListAux.size() == 0){
                 ganhou = true;
+                if(score.getPontuacao() == 0){
+                score.setPontuacao(100);
 
+                }
+                
                 finalizar();
             }else if (contErros == 5){
                 ganhou = false;

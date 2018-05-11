@@ -46,7 +46,7 @@ public class Score {
 			
 			for(int i = 0; i<ranking.size(); i++){
 				for(int j = 0; j<ranking.size()-1; j++){
-					if(ranking.get(j).getPontuacao() > ranking.get(j + 1).getPontuacao()){
+					if(ranking.get(j).getPontuacao() < ranking.get(j + 1).getPontuacao()){
 						aux = ranking.get(j);
 						ranking.set(j, ranking.get(j + 1));
 						ranking.set(j + 1, aux);

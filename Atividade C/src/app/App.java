@@ -15,14 +15,14 @@ public class App {
 	static List<Tema> temas = new ArrayList<>();
 
 	public static void main(String[] args) {
-		temas.add(new Tema("Objeto"));
-		temas.add(new Tema("Animal"));
-		temas.get(1).cadastrarPalavra("Cachorro");
-		temas.get(1).cadastrarPalavra("Gato");
-		temas.get(1).cadastrarPalavra("Rato");
-		temas.get(0).cadastrarPalavra("Colher");
-		temas.get(0).cadastrarPalavra("Mesa");
-		temas.get(0).cadastrarPalavra("Cadeira");
+		temas.add(new Tema("objeto"));
+		temas.add(new Tema("animal"));
+		temas.get(1).cadastrarPalavra("cachorro");
+		temas.get(1).cadastrarPalavra("gato");
+		temas.get(1).cadastrarPalavra("rato");
+		temas.get(0).cadastrarPalavra("colher");
+		temas.get(0).cadastrarPalavra("mesa");
+		temas.get(0).cadastrarPalavra("cadeira");
 		menu();
 	}
 	
