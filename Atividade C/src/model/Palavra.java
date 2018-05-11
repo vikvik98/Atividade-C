@@ -4,18 +4,15 @@ public class Palavra {
 
     private String nome;
     private char [] palavraEscondida;
-    //variavel pra saber se eu ja acertei ou nao a palavra. - RODADA -
 
     public Palavra(String nome) {
         this.nome = nome;
         this.palavraEscondida = gerarPalavraEscondida();
     }
 
-    //TODO: Boneco.
-    //TODO: voltar as palavras escondidas.
 
     public boolean verificaLetra(char letra, int pos) {
-        if (palavraEscondida [pos] == '_'){
+        if (palavraEscondida [pos] == '-'){
             return letra == nome.charAt(pos);
         }else if (letra == palavraEscondida [pos]){
             throw new IllegalArgumentException();
@@ -48,7 +45,7 @@ public class Palavra {
     public char [] gerarPalavraEscondida(){
         palavraEscondida = new char[nome.length()];
         for (int i = 0; i < this.nome.length(); i++){
-            palavraEscondida [i] = '_';
+            palavraEscondida [i] = '-';
         }
         return palavraEscondida;
     }

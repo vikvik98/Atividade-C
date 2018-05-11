@@ -39,16 +39,16 @@ public class Boneco {
                 break;
 
             case 5:
-                corpo = "  __  ";
+                corpo = "  __  \n ";
                 corpo += "|  O   \n";
                 corpo += "|--|--   \n";
                 corpo += "| /    \n";
                 break;
             case 6:
-                corpo = "  __   \n";
+                corpo = "  __      \n";
                 corpo += "|  O      \n";
                 corpo += "|--|--    \n";
-                corpo += "| / / \n";
+                corpo += "| / /     \n";
                 break;
         }
     }
