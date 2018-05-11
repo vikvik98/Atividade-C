@@ -70,6 +70,13 @@ public class Score {
 			}
 		return listaHighScore;
 	}
+	
+	public int calculaPonto(int tracos){
+		
+		int pontos = (tracos * 15) + 100;		
+		return pontos;
+		
+	}
 
 
 	public int getPontuacao() {
