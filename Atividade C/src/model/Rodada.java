@@ -13,13 +13,18 @@ public class Rodada {
     private boolean ganhou;
     private boolean acabou;
     private String erradas;
+    private Score score;
+    private String tema;
+
 
     public Rodada(Tema tema) {
-        this.palavraList = tema.sortearPalavra();
+        this.palavraList = tema.sortearQuantidadeDePalavras();
+        this.tema = tema.getNome();
         this.palavraListAux = this.palavraList;
         this.erradas = "";
         this.acabou = false;
         this.contErros = 0;
+        this.score = new Score();
     }
 
     public Boneco getBoneco() {
@@ -42,6 +47,7 @@ public class Rodada {
             if (palpite.length() > 1) {
                 if (palpite.length() == palavraList.get(i).getNome().length()){
                     if (palavraList.get(i).verificaPalavra(palpite)) {
+                        score.setPontuacao(score.calculaPonto(palavraList.get(i).getContTracos()));
                         palavraList.get(i).preencherPalavraEscondida();
                         acertou = true;
                     }
@@ -78,6 +84,7 @@ public class Rodada {
 
             if (palavraListAux.size() == 0){
                 ganhou = true;
+
                 finalizar();
             }else if (contErros == 5){
                 ganhou = false;
@@ -116,4 +123,13 @@ public class Rodada {
     public boolean isGanhou() {
         return ganhou;
     }
+
+    public int getScore() {
+        return score.getPontuacao();
+    }
+
+    public String getTema() {
+        return this.tema;
+    }
+
 }

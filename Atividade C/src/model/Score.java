@@ -1,5 +1,6 @@
 package model;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,7 +40,7 @@ public class Score {
 			
 		}
 		
-		//Ordenar a pontuação do ranking
+		//Ordenar a pontuao do ranking
 		if (ranking.size() > 1){
 			Score aux;
 			
@@ -62,9 +63,10 @@ public class Score {
 	public String exibir_higscores(List<Score> pontuacoes){
 		String listaHighScore = "----HIGHSCORES----\n";
 		
-			if(pontuacoes.size() > 1){
+			if(pontuacoes.size() > 0){
+				System.out.println("entrou");
 			
-				for(int i = 1; i < pontuacoes.size(); i++){
+				for(int i = 0; i < pontuacoes.size(); i++){
 					listaHighScore += i + "-" + pontuacoes.get(i).getNome() + "	Score: " + pontuacoes.get(i).getPontuacao()+"\n";
 				}	
 			}
@@ -72,8 +74,7 @@ public class Score {
 	}
 	
 	public int calculaPonto(int tracos){
-		
-		int pontos = (tracos * 15) + 100;		
+		int pontos = (tracos * 15) + 100;
 		return pontos;
 		
 	}

@@ -2,9 +2,11 @@ package app;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import javax.swing.JOptionPane;
 
+import jdk.nashorn.internal.scripts.JO;
 import model.*;
 
 public class App {
@@ -16,7 +18,11 @@ public class App {
 		temas.add(new Tema("Objeto"));
 		temas.add(new Tema("Animal"));
 		temas.get(1).cadastrarPalavra("Cachorro");
+		temas.get(1).cadastrarPalavra("Gato");
+		temas.get(1).cadastrarPalavra("Rato");
 		temas.get(0).cadastrarPalavra("Colher");
+		temas.get(0).cadastrarPalavra("Mesa");
+		temas.get(0).cadastrarPalavra("Cadeira");
 		menu();
 	}
 	
@@ -26,8 +32,12 @@ public class App {
 
 		switch (escolha) {
 			case 1:
-				Rodada rodada = new Rodada(temas.get(0));
+				Random random = new Random();
+				int num = random.nextInt(temas.size());
+				Rodada rodada = new Rodada(temas.get(num));
 				rodada.iniciarRodada();
+				JOptionPane.showMessageDialog(null,rodada.getTema());
+
 				while (!rodada.isAcabou()){
 					rodada.palpite(JOptionPane.showInputDialog(null, rodada.getBoneco().getCorpo() + "\n" + rodada.getErradas() + "\n" + rodada.getPalavras() + "\nDigite um palpite: "));
 				}
@@ -36,6 +46,9 @@ public class App {
 				}else{
 					JOptionPane.showMessageDialog(null, "Infelizmente voce perdeu!");
 				}
+				Score score = new Score(rodada.getScore(),JOptionPane.showInputDialog(null,"Digite seu nome: "));
+				score.rankeado(pontuacoes,score);
+				menu();
 				break;
 
 			case 2:
@@ -51,11 +64,14 @@ public class App {
 				break;
 
 			case 3:
+				Tema tema = new Tema(JOptionPane.showInputDialog(null, "Digite o nome do novo tema: "));
+				temas.add(tema);
+				menu();
 				break;
 
 			case 4:
-				Score score = new Score();
-				JOptionPane.showMessageDialog(null, score.exibir_higscores(pontuacoes));
+				Score x = new Score();
+				JOptionPane.showMessageDialog(null, x.exibir_higscores(pontuacoes));
 				menu();
 
 			case 5:
