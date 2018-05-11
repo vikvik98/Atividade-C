@@ -8,32 +8,56 @@ public class Tema {
 
     private String nome;
     private List<Palavra> palavraList = new ArrayList<>();
-    private List<Palavra> palavrasSortiadas = new ArrayList<>();
+    private Palavra palavraSortiada;
+    private List<Palavra> auxPalavras = new ArrayList<>();
+    private List<Palavra> palavras = new ArrayList<>();
+    Random random = new Random();
+    int quantidadePalavrasSorteadas = 0;
 
     public Tema(String nome) {
         this.nome = nome;
+        this.sortearQuantidadeDePalavras();
     }
 
     public void cadastrarPalavra(String palavra){
         Palavra palavra1 = new Palavra(palavra);
         palavraList.add(palavra1);
     }
-
-    public List<Palavra> sortearPalavra(){
-        Random random = new Random();
-        List<Palavra> auxPalavras = palavraList;
-        int quantidadePalavrasSorteadas =  (1 + random.nextInt(2));
-        if(quantidadePalavrasSorteadas > auxPalavras.size()){
-            quantidadePalavrasSorteadas = auxPalavras.size();
+    
+    public List<Palavra> sortearQuantidadeDePalavras(){
+    	quantidadePalavrasSorteadas =  (1 + random.nextInt(2));
+        if(quantidadePalavrasSorteadas > palavraList.size()){
+            quantidadePalavrasSorteadas = palavraList.size();
+            for (int i = 0; i < quantidadePalavrasSorteadas; i++){
+            	palavras.add(sortearPalavra());
+            }
         }
-        for(int i = 0; i < quantidadePalavrasSorteadas; i++){
-            int quantidadePalavras = auxPalavras.size();
+		return palavras;
+    }
+
+    public Palavra sortearPalavra(){
+    	
+        
+            int quantidadePalavras = palavraList.size();
             int indexPlavras = random.nextInt(quantidadePalavras);
-            palavrasSortiadas.add(auxPalavras.get(indexPlavras));
-            auxPalavras.remove(indexPlavras);
-        }
+            if(verificarPalavraSorteada(palavraList.get(indexPlavras))){
+            	sortearPalavra();
+            }
+            palavraSortiada = palavraList.get(indexPlavras);
+            //auxPalavras.remove(indexPlavras);
+        
 
-        return palavrasSortiadas;
+        return palavraSortiada;
+    }
+    
+    public boolean verificarPalavraSorteada(Palavra palavra){
+    	for(int i = 0; i < auxPalavras.size(); i++){
+    		if(auxPalavras.get(i) == palavra){
+    			return true;
+    		}
+    
+    	}
+    	return false;
     }
 
     public String getNome() {
